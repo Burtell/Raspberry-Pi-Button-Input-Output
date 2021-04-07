@@ -20,7 +20,7 @@ close_led = LED(19)
 connect_led = LED(26)
 disconnect_led = LED(12)
 
-# if either racking buttons are pressed
+# if either racking buttons are pressed (so these are actually supposed to activate when the button is held for 3 seconds and deactivate when an outside signal is recieved)
 racking_in.when_pressed = racking_led.on
 racking_in.when_released = racking_led.off
 racking_out.when_pressed = racking_led.on
