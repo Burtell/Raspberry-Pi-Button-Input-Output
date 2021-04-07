@@ -1,4 +1,4 @@
-# Test branch of the code has GPIO and signal import removed
+#Test loops and booleans for LED's
 
 # button presses and their ports
 from gpiozero import Button, LED
@@ -21,13 +21,22 @@ connect_led = LED(26)
 disconnect_led = LED(12)
 
 # if either racking buttons are pressed (so these are actually supposed to activate when the button is held
-# for 3 seconds and deactivate when an outside signal is recieved)
-racking_in.when_pressed = racking_led.on
-time.sleep(3)
-racking_in.when_released = racking_led.off
-racking_out.when_pressed = racking_led.on
-time.sleep(3)
-racking_out.when_released = racking_led.off
+# for 3 seconds and deactivate when an outside signal is received)
+while racking_in.when_held:
+    start_time = time.time()
+    if time.time() - start_time >= 3:
+        racking_led.on()
+
+while racking_out.when_held:
+    start_time = time.time()
+    if time.time() - start_time >= 3:
+        racking_led.on()
+
+if permissive.when_held and power_on.when_held:
+    connect_led.on()
 
 #power_on button press
 pause()
+
+
+
