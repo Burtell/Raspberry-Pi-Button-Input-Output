@@ -33,7 +33,7 @@ while racking_out.when_held:
         racking_led.on()
 
 if permissive.when_held and power_on.when_held:
-    connect_led.on()
+    close_led.on()
 
 #power_on button press
 pause()
