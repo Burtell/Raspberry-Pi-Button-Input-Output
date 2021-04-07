@@ -5,6 +5,16 @@ from gpiozero import Button, LED
 from signal import pause
 import time
 
+
+def ledTimer(ledName, timeVar):
+    while timeVar != -1:
+        time.sleep(1)
+        if timeVar == 0:
+            ledName.on()
+        timeVar -= 1
+
+
+
 racking_in = Button(2)
 racking_out = Button(3)
 power_on = Button(4)
@@ -23,14 +33,12 @@ disconnect_led = LED(12)
 # if either racking buttons are pressed (so these are actually supposed to activate when the button is held
 # for 3 seconds and deactivate when an outside signal is received)
 while racking_in.when_held:
-    start_time = time.time()
-    if time.time() - start_time >= 3:
-        racking_led.on()
+    ledTimer(racking_led, 3)
 
 while racking_out.when_held:
-    start_time = time.time()
-    if time.time() - start_time >= 3:
-        racking_led.on()
+    ledTimer(racking_led, 3)
+
+racking_in.when_activated = ledTimer(racking_led, 3)
 
 if permissive.when_held and power_on.when_held:
     close_led.on()
